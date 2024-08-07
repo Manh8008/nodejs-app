@@ -1,0 +1,16 @@
+
+
+
+###
+GET http://localhost:5000/categories
+Content-Type: application/json 
+
+
+
+###
+PUT http://localhost:5000/orders/66acb18bc9c01864a4d382bb
+Content-Type: application/json 
+
+{
+  "status" : "Shipped"
+}
