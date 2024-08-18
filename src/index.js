@@ -13,7 +13,7 @@ dotenv.config()
 
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL || 'https://nextjs-shop.onrender.com',
+        origin: 'http://localhost:3000',
         credentials: true,
     })
 )
