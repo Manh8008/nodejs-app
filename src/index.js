@@ -10,7 +10,12 @@ const port = 5000;
 
 dotenv.config();
 
-app.use(cors());
+app.use(
+    cors({
+        origin: 'https://nextjs-shop.onrender.com',
+        credentials: true,
+    }),
+);
 
 const db = require('./config/db');
 db.connect();
