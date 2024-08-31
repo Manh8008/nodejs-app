@@ -2,7 +2,7 @@
 
 
 ###
-GET http://localhost:5000/categories
+GET http://localhost:5000/products/search/áo
 Content-Type: application/json 
 
 

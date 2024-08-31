@@ -1,6 +1,6 @@
-const Product = require("../models/Product");
-const fs = require("fs");
-const path = require("path");
+const Product = require('../models/Product');
+const fs = require('fs');
+const path = require('path');
 
 class ProductController {
     // [GET] /products
@@ -22,7 +22,7 @@ class ProductController {
                 await product.save();
                 res.json(product);
             } else {
-                res.status(404).json({ message: "Sản phẩm không tìm thấy!" });
+                res.status(404).json({ message: 'Sản phẩm không tìm thấy!' });
             }
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -32,7 +32,7 @@ class ProductController {
     // [GET] /products/category/:categorySlug
     async getProductsByCategory(req, res) {
         try {
-            const categorySlug = req.params.categorySlug || "";
+            const categorySlug = req.params.categorySlug || '';
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 8;
             const skip = (page - 1) * limit;
@@ -54,7 +54,7 @@ class ProductController {
             const { name, price, description, quantity, categorySlug } = req.body;
 
             if (!name || !price || !description || !quantity || !categorySlug) {
-                return res.status(400).json({ message: "Thiếu thông tin cần thiết!" });
+                return res.status(400).json({ message: 'Thiếu thông tin cần thiết!' });
             }
             const obj = {
                 name,
@@ -66,7 +66,7 @@ class ProductController {
             };
 
             await Product.create(obj);
-            res.status(200).json({ message: "Thêm sản phẩm thành công!" });
+            res.status(200).json({ message: 'Thêm sản phẩm thành công!' });
         } catch (error) {
             console.log(error);
             res.status(500).json({ error: error.message });
@@ -92,24 +92,24 @@ class ProductController {
             const oldProduct = await Product.findById(id);
 
             if (!oldProduct) {
-                return res.status(404).json({ message: "Sản phẩm không tồn tại!" });
+                return res.status(404).json({ message: 'Sản phẩm không tồn tại!' });
             }
 
             if (!name || !price || !description || !quantity || !categorySlug) {
-                return res.status(400).json({ message: "Thiếu thông tin cần thiết!" });
+                return res.status(400).json({ message: 'Thiếu thông tin cần thiết!' });
             }
 
             if (req.file) {
                 image = req.file.filename;
-                const oldImagePath = path.join(__dirname, "../../public/images", oldProduct.image);
+                const oldImagePath = path.join(__dirname, '../../public/images', oldProduct.image);
 
                 fs.unlink(oldImagePath, (err) => {
-                    if (err && err.code == "ENOENT") {
-                        console.info("File không tồn tại sẽ không xóa nó!");
+                    if (err && err.code == 'ENOENT') {
+                        console.info('File không tồn tại sẽ không xóa nó!');
                     } else if (err) {
-                        console.error("Đã xảy ra lỗi khi cố gắng xóa tệp!", err);
+                        console.error('Đã xảy ra lỗi khi cố gắng xóa tệp!', err);
                     } else {
-                        console.info("Đã xóa hình ảnh cũ!");
+                        console.info('Đã xóa hình ảnh cũ!');
                     }
                 });
             }
@@ -124,7 +124,7 @@ class ProductController {
             };
 
             await Product.updateOne({ _id: id }, data);
-            res.status(200).json({ message: "Cập nhật sản phẩm thành công!" });
+            res.status(200).json({ message: 'Cập nhật sản phẩm thành công!' });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -134,19 +134,27 @@ class ProductController {
     async destroy(req, res) {
         try {
             await Product.deleteOne({ _id: req.params.id });
-            res.status(200).json({ message: "Product deleted successfully" });
+            res.status(200).json({ message: 'Product deleted successfully' });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     }
 
-    // [GET] /products/search
+    // [GET] /products/search/:keyword
     async search(req, res) {
         try {
-            const keyword = req.params.keyword || "";
-            const regex = new RegExp(keyword, "i");
-            const products = await Product.find({ name: regex });
-            res.json(products);
+            const keyword = req.params.keyword || '';
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 8;
+            const skip = (page - 1) * limit;
+            const regex = new RegExp(keyword, 'i');
+
+            const totalCount = await Product.countDocuments({ name: regex });
+            const products = await Product.find({ name: regex }).skip(skip).limit(limit).sortStable(req);
+
+            const totalPages = Math.ceil(totalCount / limit);
+
+            res.json({ products: Array.isArray(products) ? products : [], totalPages });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -159,7 +167,7 @@ class ProductController {
 
             const transformedProducts = products.map((product) => ({
                 ...product.toObject(),
-                condition: "showNew",
+                condition: 'showNew',
             }));
             res.json(transformedProducts);
         } catch (error) {
@@ -174,7 +182,7 @@ class ProductController {
 
             const transformedProducts = products.map((product) => ({
                 ...product.toObject(),
-                condition: "showHot",
+                condition: 'showHot',
             }));
 
             res.json(transformedProducts);
