@@ -6,20 +6,27 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const app = express();
-const port = 5000;
 
+// Sử dụng biến môi trường từ file .env
 dotenv.config();
 
+// Cấu hình port, mặc định sử dụng port 5000 nếu không có biến môi trường
+const port = process.env.PORT || 5000;
+
+// Cấu hình CORS theo môi trường
 app.use(
     cors({
-        origin: 'https://nextjs-shop-rouge.vercel.app/',
+        origin:
+            process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://nextjs-shop-rouge.vercel.app',
         credentials: true,
     }),
 );
 
+// Kết nối database
 const db = require('./config/db');
 db.connect();
 
+// Middleware setup
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -28,9 +35,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
 
+// Cấu hình router
 const route = require('./router');
 route(app);
 
+// Start server và lắng nghe port
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });
