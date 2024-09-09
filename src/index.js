@@ -12,7 +12,7 @@ dotenv.config();
 
 app.use(
     cors({
-        origin: 'https://nextjs-shop.onrender.com',
+        origin: 'https://nextjs-shop-rouge.vercel.app/',
         credentials: true,
     }),
 );

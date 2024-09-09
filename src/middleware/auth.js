@@ -1,4 +1,3 @@
-
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -21,8 +20,8 @@ const requireAdmin = async (req, res, next) => {
             return res.status(403).json({ error: 'Forbidden' });
         }
 
-        req.user = user; // Lưu thông tin user vào req để dùng ở các middleware khác nếu cần
-        next(); // Cho phép tiếp tục vào route
+        req.user = user;
+        next();
     } catch (error) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
