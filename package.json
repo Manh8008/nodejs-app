@@ -11,6 +11,9 @@
         "manh",
         "manhnguyen"
     ],
+    "engines": {
+        "node": "21.x"
+    },
     "author": "",
     "license": "ISC",
     "dependencies": {

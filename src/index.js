@@ -24,6 +24,10 @@ app.use(
     }),
 );
 
+app.use('/', (req, res) => {
+    res.send('Home page');
+});
+
 console.log(process.env.NODE_ENV);
 
 // Kết nối database
