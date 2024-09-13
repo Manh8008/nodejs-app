@@ -19,7 +19,7 @@ app.use(
         origin:
             process.env.NODE_ENV === 'development'
                 ? 'http://localhost:3000'
-                : 'https://manhxanh.id.vn' || 'https://nextjs-shop-rouge.vercel.app',
+                : ['https://manhxanh.id.vn', 'https://nextjs-shop-rouge.vercel.app'],
         credentials: true,
     }),
 );
