@@ -17,10 +17,14 @@ const port = process.env.PORT || 5000;
 app.use(
     cors({
         origin:
-            process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://nextjs-shop-rouge.vercel.app',
+            process.env.NODE_ENV === 'development'
+                ? 'http://localhost:3000'
+                : 'https://manhxanh.id.vn' || 'https://nextjs-shop-rouge.vercel.app',
         credentials: true,
     }),
 );
+
+console.log(process.env.NODE_ENV);
 
 // Kết nối database
 const db = require('./config/db');
@@ -40,6 +44,6 @@ const route = require('./router');
 route(app);
 
 // Start server và lắng nghe port
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`App listening at http://localhost:${port}`);
 });
