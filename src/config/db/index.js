@@ -1,13 +1,23 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 
 async function connect() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/fe_2_dev');
-        console.log("Connect successfully !");
+        const mongoUrl = process.env.MONGO_CONNECT_URL;
+
+        console.log(mongoUrl);
+        if (!mongoUrl) {
+            throw new Error('MONGO_CONNECT_URL is not defined');
+        }
+        await mongoose.connect(mongoUrl, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('Connect successfully !');
     } catch (err) {
-        console.log("Connect failue !");
+        console.error('Connect failure:', err);
     }
 }
 
-module.exports = { connect }
-
+module.exports = { connect };
