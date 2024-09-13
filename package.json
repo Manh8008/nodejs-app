@@ -1,10 +1,11 @@
 {
     "name": "backend",
     "version": "1.0.0",
-    "description": "",
+    "description": "Backend server for my application",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon --inspect src/index.js",
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
@@ -26,7 +27,6 @@
         "dotenv": "^16.4.5",
         "express": "^4.18.3",
         "express-handlebars": "^7.1.2",
-        "fs": "^0.0.1-security",
         "jsonwebtoken": "^9.0.2",
         "method-override": "^3.0.0",
         "mongoose": "^8.4.4",
@@ -34,7 +34,6 @@
         "mongoose-slug-generator": "^1.0.4",
         "multer": "^1.4.5-lts.1",
         "nodemailer": "^6.9.14",
-        "path": "^0.12.7",
         "slugify": "^1.6.6"
     },
     "devDependencies": {
