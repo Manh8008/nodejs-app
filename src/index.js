@@ -44,6 +44,6 @@ const route = require('./router');
 route(app);
 
 // Start server và lắng nghe port
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });

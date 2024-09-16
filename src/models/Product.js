@@ -10,7 +10,7 @@ const ProductSchema = new Schema({
     quantity: Number,
     description: String,
     categorySlug: String,
-    isNew: { type: Boolean, default: false },
+    isProductNew: { type: Boolean, default: false },
     isOnSale: { type: Boolean, default: false },
     views: { type: Number, default: 0 },
     sales: { type: Number, default: 0 },

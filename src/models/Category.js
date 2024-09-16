@@ -2,17 +2,20 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 const Schema = mongoose.Schema;
 
-const CategorySchema = new Schema({
-    name: { type: String, required: true },
-    image: String,
-    description: String,
-    slug: { type: String, unique: true },
-    parent: { type: Schema.Types.ObjectId, ref: 'Category', default: null }
-}, { timestamps: true });
+const CategorySchema = new Schema(
+    {
+        name: { type: String, required: true },
+        image: String,
+        description: String,
+        slug: { type: String, unique: true },
+        parent: { type: Schema.Types.ObjectId, ref: 'Category', default: null },
+    },
+    { timestamps: true },
+);
 
 // Tạo slug từ tên
 CategorySchema.pre('save', async function (next) {
-    if (this.isModified('name') || this.isNew) {
+    if (this.isModified('name') || this.isProductNew) {
         let slug = slugify(this.name, { lower: true, strict: true });
         if (this.parent) {
             const parentCategory = await this.model('Category').findById(this.parent);
@@ -31,12 +34,11 @@ CategorySchema.pre('save', async function (next) {
     next();
 });
 
-
 // Định nghĩa subcategories
 CategorySchema.virtual('subcategories', {
     ref: 'Category',
     localField: '_id',
-    foreignField: 'parent'
+    foreignField: 'parent',
 });
 
 CategorySchema.set('toObject', { virtuals: true });
