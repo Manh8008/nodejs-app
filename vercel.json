@@ -8,8 +8,9 @@
     ],
     "routes": [
         {
-            "src": "/(.*)",
-            "dest": "/src/index.js"
+            "src": "/.*",
+            "dest": "https://my-old-site.com",
+            "status": 301
         }
     ]
 }

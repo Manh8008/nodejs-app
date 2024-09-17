@@ -2,9 +2,13 @@
 
 
 ###
-GET http://localhost:5000/products/search/áo
+GET https://nodejs-app-inky.vercel.app/products/filter/new
 Content-Type: application/json 
 
+
+###
+GET http://localhost:5000/products/filter/new
+Content-Type: application/json 
 
 
 ###

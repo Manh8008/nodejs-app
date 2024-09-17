@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 async function connect() {
     try {
-        const mongoUrl = process.env.MONGO_URI;
+        const mongoUrl = process.env.MONGO_URL;
 
         console.log(mongoUrl);
         if (!mongoUrl) {
