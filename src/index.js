@@ -11,7 +11,7 @@ const app = express();
 dotenv.config();
 
 // Cấu hình port, mặc định sử dụng port 5000 nếu không có biến môi trường
-const port = process.env.PORT || 5000;
+// const port = process.env.PORT || 5000;
 
 // Cấu hình CORS theo môi trường
 app.use(
@@ -43,7 +43,7 @@ app.use(morgan('combined'));
 const route = require('./router');
 route(app);
 
-// Start server và lắng nghe port
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`);
+    console.log(`Server is running on port ${port}`);
 });
