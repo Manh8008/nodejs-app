@@ -13,7 +13,7 @@
         "manhnguyen"
     ],
     "engines": {
-        "node": "20.x"
+        "node": ">=20.0.0"
     },
     "author": "",
     "license": "ISC",
