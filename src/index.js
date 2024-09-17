@@ -12,10 +12,7 @@ dotenv.config();
 
 app.use(
     cors({
-        origin:
-            process.env.NODE_ENV === 'development'
-                ? 'http://localhost:3000'
-                : ['https://manhxanh.id.vn', 'https://nextjs-shop-rouge.vercel.app'],
+        origin: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://ivy-ui-self.vercel.app',
         credentials: true,
     }),
 );
