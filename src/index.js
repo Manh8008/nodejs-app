@@ -6,14 +6,10 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const app = express();
+const port = process.env.PORT || 5000;
 
-// Sử dụng biến môi trường từ file .env
 dotenv.config();
 
-// Cấu hình port, mặc định sử dụng port 5000 nếu không có biến môi trường
-// const port = process.env.PORT || 5000;
-
-// Cấu hình CORS theo môi trường
 app.use(
     cors({
         origin:
@@ -43,7 +39,6 @@ app.use(morgan('combined'));
 const route = require('./router');
 route(app);
 
-const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
